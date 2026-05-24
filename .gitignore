@@ -1,0 +1,9 @@
+models/
+*.bin
+*.safetensors
+*.h5
+*.ot
+*.msgpack
+__pycache__/
+*.pyc
+.promptfoo/

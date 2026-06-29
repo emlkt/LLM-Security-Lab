@@ -37,7 +37,7 @@ TOOLS = [
 ]
 
 def check_rules(prompt: str) -> dict:
-    """Проверяем промпт через rules.py"""
+    """проверка промта через rules.py"""
     result = analyze_prompt(prompt)
     print(f"  [tool] check_rules -> risk_score: {result['risk_score']}, rules: {[r['rule'] for r in result['triggered_rules']]}")
     return result
@@ -62,7 +62,7 @@ def call_model(prompt: str) -> str:
     return f"Ошибка: {response.status_code}"
 
 def block_request(reason: str) -> str:
-    """Блокируем запрос"""
+    """блокировка запроса"""
     print(f"  [tool] block_request -> {reason}")
     return "Запрос заблокирован: обнаружена подозрительная активность!" 
 
@@ -72,7 +72,7 @@ TOOL_FUNCTIONS = {
 }
 
 def run_agent(user_prompt: str) -> dict:
-    """Главная функция агента"""
+    """главная функция агента"""
     print(f"\n[agent] Получен промпт: {user_prompt[:50]}...")
 
     # принудительный check_rules всегда, независимо от модели

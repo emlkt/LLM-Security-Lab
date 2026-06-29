@@ -10,7 +10,7 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "call_model",
-            "description": "Отправляет промпт к LLM и возвращает ответ.",
+            "description": "Отправляет промпт к LLM и возвращает ответ",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -24,7 +24,7 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "block_request",
-            "description": "Блокирует запрос если он опасный.",
+            "description": "Блокирует запрос если он опасный",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -75,7 +75,7 @@ def run_agent(user_prompt: str) -> dict:
     """Главная функция агента"""
     print(f"\n[agent] Получен промпт: {user_prompt[:50]}...")
 
-    # Принудительный check_rules — всегда, независимо от модели
+    # принудительный check_rules всегда, независимо от модели
     analysis = check_rules(user_prompt)
 
     if analysis["risk_score"] >= 50:
@@ -88,11 +88,11 @@ def run_agent(user_prompt: str) -> dict:
             "analysis": analysis,
         }
 
-    # Если чисто — запускаем агента для call_model
+    # если чисто то запуск агента для call_model
     messages = [
         {
             "role": "system",
-            "content": "Ты — агент безопасности. Для каждого запроса вызови call_model и верни ответ. Не отвечай напрямую."
+            "content": "Ты - агент безопасности. Для каждого запроса вызови call_model и верни ответ. Не отвечай напрямую"
         },
         {"role": "user", "content": user_prompt}
     ]
@@ -122,14 +122,14 @@ def run_agent(user_prompt: str) -> dict:
         messages.append(message)
 
         if not message.get("tool_calls"):
-            final_response = message.get("content", "Готово.")
+            final_response = message.get("content", "Готово")
             break
 
         for tool_call in message["tool_calls"]:
             tool_name = tool_call["function"]["name"]
             tool_args = json.loads(tool_call["function"]["arguments"])
 
-            # всегда передаём оригинальный промпт пользователя
+            # обязательно передавать оригинальный промт пользователя!
             if tool_name == "call_model":
                 tool_args["prompt"] = user_prompt
 
